@@ -46,13 +46,13 @@ na odczytany zdalnie zamiast przeskoku.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man8,%{_sysconfdir}/{rc.d/init.d,sysconfig,cron.daily}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man8,/etc/{rc.d/init.d,sysconfig,cron.daily}}
 
 install rdate $RPM_BUILD_ROOT%{_bindir}
 install rdate.8 $RPM_BUILD_ROOT%{_mandir}/man8
-install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/rdate
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rdate
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/rdate
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/rdate
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/sysconfig/rdate
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/cron.daily/rdate
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,7 +68,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/rdate
-%attr(755,root,root) %{_sysconfdir}/rc.d/init.d/rdate
-%attr(755,root,root) %{_sysconfdir}/cron.daily/rdate
-%attr(644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/rdate
+%attr(754,root,root) /etc/rc.d/init.d/rdate
+%attr(755,root,root) /etc/cron.daily/rdate
+%attr(644,root,root) %config(noreplace) /etc/sysconfig/rdate
 %{_mandir}/man8/*
