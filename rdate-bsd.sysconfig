@@ -2,7 +2,7 @@
 #SET_TIME="yes"
 
 # From which server?
-#RDATE_SERVERS="time.task.gda.pl"
+RDATE_SERVERS="time.task.gda.pl"
 
 # uncomment to disable gradual skewing by adjtimex()
 #ADJTIMEX="no"
