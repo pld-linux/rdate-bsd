@@ -19,10 +19,16 @@ if is_no "${NETWORKING}"; then
 fi
 
 SET_TIME=no
+ADJTIMEX=yes
 
 # Get service config
 if [ -f /etc/sysconfig/rdate ] ; then
 	. /etc/sysconfig/rdate
+fi
+if [ "$ADJTIMEX" = "no" ]; then
+	ADJOPT=""
+else
+	ADJOPT="-a"
 fi
 
 # See how we were called.
@@ -31,7 +37,7 @@ case "$1" in
 	# Check if we have to do anything:
 	if [ "$SET_TIME" = "yes" ]; then
 		if [ -n "$RDATE_SERVER" ]; then
-			run_cmd "Setting time from remote server: $RDATE_SERVER" rdate $RDATE_SERVER
+			run_cmd "Setting time from remote server: $RDATE_SERVER" rdate $ADJOPT $RDATE_SERVER
 		fi
 	fi
 	;;

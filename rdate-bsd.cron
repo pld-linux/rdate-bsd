@@ -6,12 +6,20 @@
 # Source networking configuration.
 . /etc/sysconfig/network
 
+SET_TIME=no
+ADJTIMEX=yes
+
 # Get service config
 if [ -f /etc/sysconfig/rdate ]; then
 	. /etc/sysconfig/rdate
 fi
+if [ "$ADJTIMEX" = "no" ]; then
+	ADJOPT=""
+else
+	ADJOPT="-a"
+fi
 
 # Check that networking is up.
 if [ "is_yes ${NETWORKING}" -a "is_yes ${SET_TIME}" -a -n "${RDATE_SERVER}" ]; then
-	/usr/bin/rdate -s $RDATE_SERVER
+	/usr/bin/rdate $ADJOPT -s $RDATE_SERVER
 fi

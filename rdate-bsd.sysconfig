@@ -3,3 +3,6 @@
 
 # From which server?
 #RDATE_SERVER=""
+
+# uncomment to disable gradual skewing by adjtimex()
+#ADJTIMEX="no"
