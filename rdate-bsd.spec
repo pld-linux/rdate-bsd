@@ -12,8 +12,8 @@ Source3:	%{name}.cron
 Patch0:		%{name}-debian.patch
 Requires(post,preun):	/sbin/chkconfig
 Provides:	rdate
-Obsoletes:	rdate
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	rdate
 
 %description
 rdate is a program that can retrieve the time from another machine on
