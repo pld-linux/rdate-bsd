@@ -5,15 +5,16 @@ Version:	1.4
 Release:	5
 License:	BSD
 Group:		Networking/Utilities
-Source0:	ftp://ftp.debian.org/pub/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
+Source0:	ftp://ftp.debian.org/debian/pool/main/r/rdate/rdate_%{version}.orig.tar.gz
+# Source0-md5:	d2c8812d664a1f33886c1be1a6500109
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.cron
 Patch0:		%{name}-debian.patch
 Requires(post,preun):	/sbin/chkconfig
 Provides:	rdate
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	rdate
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 rdate is a program that can retrieve the time from another machine on
