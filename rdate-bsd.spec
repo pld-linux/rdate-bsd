@@ -68,6 +68,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/rdate
 %attr(755,root,root) %{_sysconfdir}/rc.d/init.d/rdate
-%attr(755,root,root) %{_sysconfdir}/cron.daily/%{name}
+%attr(755,root,root) %{_sysconfdir}/cron.daily/rdate
 %attr(644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/rdate
 %{_mandir}/man8/*
