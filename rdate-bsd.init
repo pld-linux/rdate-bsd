@@ -2,7 +2,7 @@
 #
 # rdate		This shell script takes care of setting date from ntp server on startup
 #
-# chkconfig:    2345 11 89
+# chkconfig:    2345 15 89
 # description:	set time with rdate
 # processname:	rdate
 
