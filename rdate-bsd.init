@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# rdate		This shell script takes care of setting date from ntp server on startup
+#
+# chkconfig:    2345 11 89
+# description:	set time with rdate
+# processname:	rdate
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+if is_no "${NETWORKING}"; then
+	msg_network_down rdate
+	exit 1
+fi
+
+SET_TIME=no
+
+# Get service config
+if [ -f /etc/sysconfig/rdate ] ; then
+	. /etc/sysconfig/rdate
+fi
+
+# See how we were called.
+case "$1" in
+  start|restart)
+	# Check if we have to do anything:
+	if [ "$SET_TIME" = "yes" ]; then
+		if [ -n "$RDATE_SERVER" ]; then
+			run_cmd "Setting time from remote server: $RDATE_SERVER" rdate $RDATE_SERVER
+		fi
+	fi
+	;;
+  stop)
+  	# nothing to do
+	;;
+  status)
+	if [ -n "$RDATE_SERVER" ]; then
+		echo -n "Remote time: "
+		rdate -p $RDATE_SERVER
+		echo -n "Local time: "
+		date
+		echo -n "Local machine hardware clock: "
+		clock --show
+	fi
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|status}"
+	exit 1
+esac

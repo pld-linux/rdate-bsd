@@ -1,0 +1,5 @@
+# Do you want to set data from remote server at all?
+#SET_TIME="yes"
+
+# From which server?
+#RDATE_SERVER=""
