@@ -35,6 +35,8 @@ else
 	ADJOPT="-a"
 fi
 
+#rdate-bsd accepts only one argument
+RDATE_SERVERS=`echo $RDATE_SERVERS | tr -cs '[:graph:]' '[\n*]'|head -n1`
 
 # See how we were called.
 case "$1" in
