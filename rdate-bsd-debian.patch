@@ -1,0 +1,132 @@
+--- rdate-1.4.orig/rdate.8
++++ rdate-1.4/rdate.8
+@@ -54,7 +54,7 @@
+ Do not print the time.
+ .It Fl a
+ Use the
+-.Xr adjtime 2
++.Xr adjtimex 2
+ call to gradually skew the local time to the
+ remote time rather than just hopping.
+ .El
+@@ -64,7 +64,7 @@
+ A record of date resets and time changes.
+ .El
+ .Sh SEE ALSO
+-.Xr adjtime 2 ,
++.Xr adjtimex 2 ,
+ .Xr gettimeofday 2 ,
+ .Xr utmp 5 ,
+ .Xr inetd 8
+--- rdate-1.4.orig/rdate.c
++++ rdate-1.4/rdate.c
+@@ -50,12 +50,14 @@
+ 
+ #include <ctype.h>
+ #include <err.h>
++#include <errno.h>
+ #include <netdb.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <time.h>
+ #include <unistd.h>
+-#include <util.h>
++#include <utmp.h>
+ 
+ /* seconds from midnight Jan 1900 - 1970 */
+ #if __STDC__
+@@ -64,13 +66,15 @@
+ #define DIFFERENCE 2208988800
+ #endif
+ 
++#define progname program_invocation_short_name
++
+ 	int	main __P((int, char **));
+ static	void	usage __P((void));
+ 
+ static void
+ usage()
+ {
+-	(void) fprintf(stderr, "Usage: %s [-psa] host\n", getprogname());
++	(void) fprintf(stderr, "Usage: %s [-psa] host [port] \n", progname);
+ 	(void) fprintf(stderr, "  -p: just print, don't set\n");
+ 	(void) fprintf(stderr, "  -s: just set, don't print\n");
+ 	(void) fprintf(stderr, "  -a: use adjtime instead of instant change\n");
+@@ -85,12 +89,15 @@
+ 	int		slidetime = 0;
+ 	int		adjustment;
+ 	time_t          tim;
++	int32_t		ttim;
+ 	char           *hname, *emsg;
+ 	struct addrinfo	hints, *res, *res0;
+ 	int             c;
+ 	int		error;
++	const char     *service;
+ 
+ 	adjustment = 0;
++	service = "time";
+ 	while ((c = getopt(argc, argv, "psa")) != -1)
+ 		switch (c) {
+ 		case 'p':
+@@ -110,21 +117,29 @@
+ 			return 1;
+ 		}
+ 
+-	if (argc - 1 != optind) {
++	if (argc <= optind) {
+ 		usage();
+ 		return 1;
+ 	}
+ 	hname = argv[optind];
++	if (argc > ++optind) {
++		if (argc > optind + 1) {
++			usage();
++			return 1;
++		}
++		service = argv[optind];
++	}
+ 
+ 	memset(&hints, 0, sizeof (hints));
+ 	hints.ai_family = PF_UNSPEC;
+ 	hints.ai_socktype = SOCK_STREAM;
+ 	hints.ai_flags = AI_CANONNAME;
+-	error = getaddrinfo(hname, "time", &hints, &res0);
++	error = getaddrinfo(hname, service, &hints, &res0);
+ 	if (error)
+ 		errx(1, "%s: %s", gai_strerror(error), hname);
+ 
+-	for (res = res0, s = -1; res != NULL; res = res->ai_next) {
++	res = res0;
++	do {
+ 		s = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+ 		if (s < 0) {
+ 			emsg = "socket";
+@@ -139,15 +154,15 @@
+ 		}
+ 		
+ 		break;
+-	}
++	} while ((res = res->ai_next));
+ 	if (s < 0)
+ 		err(1, "%s", emsg);
+ 
+-	if (read(s, &tim, sizeof(time_t)) != sizeof(time_t))
++	if (read(s, &ttim, sizeof(ttim)) != sizeof(ttim))
+ 		err(1, "Could not read data");
+ 
+ 	(void) close(s);
+-	tim = ntohl(tim) - DIFFERENCE;
++	tim = ntohl(ttim) - DIFFERENCE;
+ 
+ 	if (!pr) {
+ 	    struct timeval  tv;
+@@ -174,7 +189,7 @@
+ 		if (slidetime)
+ 		    (void) fprintf(stdout, 
+ 				   "%s: adjust local clock by %d seconds\n",
+-				   getprogname(), adjustment);
++				   progname, adjustment);
+ 	}
+ 	return 0;
+ }
