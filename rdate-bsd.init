@@ -36,8 +36,8 @@ case "$1" in
   start|restart)
 	# Check if we have to do anything:
 	if [ "$SET_TIME" = "yes" ]; then
-		if [ -n "$RDATE_SERVER" ]; then
-			run_cmd "Setting time from remote server: $RDATE_SERVER" rdate $ADJOPT $RDATE_SERVER
+		if [ -n "$RDATE_SERVERS" ]; then
+			run_cmd "Setting time from remote server: $RDATE_SERVERS" rdate $ADJOPT $RDATE_SERVERS
 		fi
 	fi
 	;;
@@ -45,9 +45,9 @@ case "$1" in
   	# nothing to do
 	;;
   status)
-	if [ -n "$RDATE_SERVER" ]; then
+	if [ -n "$RDATE_SERVERS" ]; then
 		echo -n "Remote time: "
-		rdate -p $RDATE_SERVER
+		rdate -p $RDATE_SERVERS
 		echo -n "Local time: "
 		date
 		echo -n "Local machine hardware clock: "
