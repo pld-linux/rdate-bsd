@@ -2,12 +2,13 @@ Summary:	Remote clock reader (and local setter) - NetBSD version
 Summary(pl):	Program podaj±cy (i ustawiaj±cy) zdalny czas zegara - wersja z NetBSD
 Name:		rdate-bsd
 Version:	1.4
-Release:	2
+Release:	3
 License:	BSD
 Group:		Networking/Utilities
 Source0:	ftp://ftp.debian.org/pub/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
+Source3:	%{name}.cron
 Patch0:		%{name}-debian.patch
 Requires(post,preun):	/sbin/chkconfig
 Provides:	rdate
@@ -44,12 +45,13 @@ na odczytany zdalnie zamiast przeskoku.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/{rc.d/init.d,sysconfig}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8,%{_sysconfdir}/{rc.d/init.d,sysconfig,cron.daily}}
 
 install rdate $RPM_BUILD_ROOT%{_sbindir}
 install rdate.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/rdate
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rdate
+install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/rdate
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -66,5 +68,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/rdate
 %attr(755,root,root) %{_sysconfdir}/rc.d/init.d/rdate
+%attr(755,root,root) %{_sysconfdir}/cron.daily/%{name}
 %attr(644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/rdate
 %{_mandir}/man8/*
