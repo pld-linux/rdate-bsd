@@ -6,6 +6,7 @@ Release:	5
 License:	BSD
 Group:		Networking/Utilities
 Source0:	ftp://ftp.debian.org/pub/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
+# Source0-md5:	d2c8812d664a1f33886c1be1a6500109
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.cron
