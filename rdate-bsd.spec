@@ -9,6 +9,7 @@ Source0:	ftp://ftp.debian.org/pub/debian/pool/r/rdate/rdate_%{version}.orig.tar.
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-debian.patch
+Requires(post,preun):	/sbin/chkconfig
 Provides:	rdate
 Obsoletes:	rdate
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -50,6 +51,9 @@ install rdate.8 $RPM_BUILD_ROOT%{_mandir}/man8
 install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/rdate
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rdate
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %post
 /sbin/chkconfig --add rdate
 
@@ -57,9 +61,6 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rdate
 if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del rdate
 fi
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
