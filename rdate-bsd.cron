@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Get service config
+if [ -f /etc/sysconfig/rdate ]; then
+	. /etc/sysconfig/rdate
+fi
+
+# Check that networking is up.
+if [ "is_yes ${NETWORKING}" -a "is_yes ${SET_TIME}" -a -n "${RDATE_SERVER}" ]; then
+	/usr/bin/rdate -s $RDATE_SERVER
+fi
