@@ -38,7 +38,7 @@ fi
 
 # See how we were called.
 case "$1" in
-  start|restart|reload)
+  start|restart|reload|force-reload)
 	# Check if we have to do anything:
 	if is_yes "$SET_TIME" && [ -n "$RDATE_SERVERS" ]; then
 		run_cmd $(nls "Setting time from remote server(s): %s" "$RDATE_SERVERS") rdate $ADJOPT $RDATE_SERVERS
@@ -58,6 +58,6 @@ case "$1" in
 	fi
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|reload|status}"
-	exit 1
+	msg_usage "$0 {start|stop|restart|reload|force-reload|status}"
+	exit 3
 esac
