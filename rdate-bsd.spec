@@ -3,7 +3,7 @@ Summary(pl):	Program podaj±cy (i ustawiaj±cy) zdalny czas zegara - wersja z NetB
 Name:		rdate-bsd
 Version:	1.4
 Release:	1
-License:	GPL
+License:	BSD
 Group:		Networking/Utilities
 Source0:	ftp://ftp.debian.org/pub/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
 Patch0:		%{name}-debian.patch
