@@ -26,7 +26,7 @@ SET_TIME=no
 ADJTIMEX=yes
 
 # Get service config
-if [ -f /etc/sysconfig/rdate ] ; then
+if [ -f /etc/sysconfig/rdate ]; then
 	. /etc/sysconfig/rdate
 fi
 if [ "$ADJTIMEX" = "no" ]; then
