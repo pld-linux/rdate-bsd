@@ -19,6 +19,9 @@ else
 	ADJOPT="-a"
 fi
 
+#rdate-bsd accepts only one argument
+RDATE_SERVERS=`echo $RDATE_SERVERS | tr -cs '[:graph:]' '[\n*]'|head -n1`
+
 # Check that networking is up.
 if [ "is_yes ${NETWORKING}" -a "is_yes ${SET_TIME}" -a -n "${RDATE_SERVERS}" ]; then
 	/usr/bin/rdate $ADJOPT -s $RDATE_SERVERS
