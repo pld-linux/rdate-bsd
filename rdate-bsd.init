@@ -2,7 +2,7 @@
 #
 # rdate		This shell script takes care of setting date from ntp server on startup
 #
-# chkconfig:    2345 15 89
+# chkconfig:	2345 15 89
 # description:	set time with rdate
 # processname:	rdate
 
@@ -13,9 +13,13 @@
 . /etc/sysconfig/network
 
 # Check that networking is up.
-if is_no "${NETWORKING}"; then
-	msg_network_down rdate
-	exit 1
+if is_yes "${NETWORKING}"; then
+	if [ ! -f /var/lock/subsys/network ]; then
+		msg_network_down rdate
+		exit 1
+	fi
+else
+	exit 0
 fi
 
 SET_TIME=no
@@ -31,18 +35,17 @@ else
 	ADJOPT="-a"
 fi
 
+
 # See how we were called.
 case "$1" in
-  start|restart)
+  start|restart|reload)
 	# Check if we have to do anything:
-	if [ "$SET_TIME" = "yes" ]; then
-		if [ -n "$RDATE_SERVERS" ]; then
-			run_cmd "Setting time from remote server: $RDATE_SERVERS" rdate $ADJOPT $RDATE_SERVERS
-		fi
+	if is_yes "$SET_TIME" && [ -n "$RDATE_SERVERS" ]; then
+		run_cmd $(nls "Setting time from remote server(s): %s" "$RDATE_SERVERS") rdate $ADJOPT $RDATE_SERVERS
 	fi
 	;;
   stop)
-  	# nothing to do
+	# nothing to do
 	;;
   status)
 	if [ -n "$RDATE_SERVERS" ]; then
@@ -55,6 +58,6 @@ case "$1" in
 	fi
 	;;
   *)
-	msg_usage "$0 {start|stop|restart|status}"
+	msg_usage "$0 {start|stop|restart|reload|status}"
 	exit 1
 esac
