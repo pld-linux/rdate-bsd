@@ -11,7 +11,7 @@ Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.cron
 Patch0:		%{name}-debian.patch
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 Provides:	rdate
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -71,5 +71,5 @@ fi
 %attr(755,root,root) %{_bindir}/rdate
 %attr(754,root,root) /etc/rc.d/init.d/rdate
 %attr(755,root,root) /etc/cron.daily/rdate
-%config(noreplace) %verify(not size mtime md5) /etc/sysconfig/rdate
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rdate
 %{_mandir}/man8/*
