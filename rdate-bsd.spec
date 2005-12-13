@@ -24,8 +24,8 @@ of the machine you queried. It is not super accurate; get ntpd if you
 are really worried about milliseconds.
 
 This version was taken from NetBSD and it has useful '-a' option,
-which causes using adjtimex() call to gradually skew the local time
-to the remote time rather than just hopping.
+which causes using adjtimex() call to gradually skew the local time to
+the remote time rather than just hopping.
 
 %description -l pl
 rdate jest programem który odczytuje datê i godzinê z innej maszyny w
