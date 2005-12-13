@@ -11,8 +11,8 @@ Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Source3:	%{name}.cron
 Patch0:		%{name}-debian.patch
-Requires:	rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 Provides:	rdate
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	rdate
