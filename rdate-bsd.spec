@@ -1,5 +1,5 @@
 Summary:	Remote clock reader (and local setter) - NetBSD version
-Summary(pl):	Program podaj±cy (i ustawiaj±cy) zdalny czas zegara - wersja z NetBSD
+Summary(pl.UTF-8):   Program podajÄ…cy (i ustawiajÄ…cy) zdalny czas zegara - wersja z NetBSD
 Name:		rdate-bsd
 Version:	1.4
 Release:	8
@@ -27,15 +27,15 @@ This version was taken from NetBSD and it has useful '-a' option,
 which causes using adjtimex() call to gradually skew the local time to
 the remote time rather than just hopping.
 
-%description -l pl
-rdate jest programem który odczytuje datê i godzinê z innej maszyny w
-sieci. Je¿eli jest uruchamiany jako root mo¿e tak¿e s³u¿yæ do
-synchronizacji lokalnego czasu wzglêdem innego komputera w sieci. Nie
-jest zbyt dok³adny i je¿eli milisekundy maj± dla nas znaczenie nale¿y
-u¿yæ ntpd.
+%description -l pl.UTF-8
+rdate jest programem ktÃ³ry odczytuje datÄ™ i godzinÄ™ z innej maszyny w
+sieci. JeÅ¼eli jest uruchamiany jako root moÅ¼e takÅ¼e sÅ‚uÅ¼yÄ‡ do
+synchronizacji lokalnego czasu wzglÄ™dem innego komputera w sieci. Nie
+jest zbyt dokÅ‚adny i jeÅ¼eli milisekundy majÄ… dla nas znaczenie naleÅ¼y
+uÅ¼yÄ‡ ntpd.
 
-Ta wersja pochodzi z NetBSD i ma przydatn± opcjê '-a', która powoduje
-u¿ywanie wywo³ania adjtimex() w celu stopniowej zmiany czasu lokalnego
+Ta wersja pochodzi z NetBSD i ma przydatnÄ… opcjÄ™ '-a', ktÃ³ra powoduje
+uÅ¼ywanie wywoÅ‚ania adjtimex() w celu stopniowej zmiany czasu lokalnego
 na odczytany zdalnie zamiast przeskoku.
 
 %prep
