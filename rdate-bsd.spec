@@ -1,5 +1,5 @@
 Summary:	Remote clock reader (and local setter) - NetBSD version
-Summary(pl.UTF-8):   Program podający (i ustawiający) zdalny czas zegara - wersja z NetBSD
+Summary(pl.UTF-8):	Program podający (i ustawiający) zdalny czas zegara - wersja z NetBSD
 Name:		rdate-bsd
 Version:	1.4
 Release:	8
