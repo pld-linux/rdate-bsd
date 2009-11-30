@@ -2,7 +2,7 @@ Summary:	Remote clock reader (and local setter) - NetBSD version
 Summary(pl.UTF-8):	Program podający (i ustawiający) zdalny czas zegara - wersja z NetBSD
 Name:		rdate-bsd
 Version:	1.4
-Release:	8
+Release:	9
 License:	BSD
 Group:		Networking/Utilities
 Source0:	ftp://ftp.debian.org/pub/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
