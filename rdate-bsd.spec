@@ -5,7 +5,7 @@ Version:	1.4
 Release:	11
 License:	BSD
 Group:		Networking/Utilities
-Source0:	ftp://ftp.debian.org/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
+Source0:	http://ftp.debian.org/debian/pool/r/rdate/rdate_%{version}.orig.tar.gz
 # Source0-md5:	d2c8812d664a1f33886c1be1a6500109
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
