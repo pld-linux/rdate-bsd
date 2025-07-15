@@ -40,7 +40,7 @@ na odczytany zdalnie zamiast przeskoku.
 
 %prep
 %setup -q -n rdate-%{version}.orig
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__cc} -o rdate %{rpmldflags} %{rpmcflags} -Dprogram_invocation_short_name=\"rdate\" -Dlint rdate.c -lutil
